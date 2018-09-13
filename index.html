@@ -222,7 +222,7 @@
   <div class="widget">
     <h3 class="widget-title">Archive</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -234,21 +234,6 @@
     <div class="widget-body">
       <ul class="recent-post-list list-unstyled no-thumbnail">
         
-          <li>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                
-              </p>
-              <p class="item-title">
-                <a href="/2018/06/02/hello-world/" class="title">Hello World</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2018-06-02T15:48:27.000Z" itemprop="datePublished">2018-06-02</time>
-              </p>
-            </div>
-          </li>
-          
           <li>
             
             <div class="item-inner">
@@ -276,63 +261,109 @@
   
   <main class="main" role="main">
   
-  <div class="content article-list">
-    
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/02/hello-world/">Hello World</a>
-    </h1>
-  
-
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2018/06/02/hello-world/" class="article-date">
-	  <time datetime="2018-06-02T15:48:27.000Z" itemprop="datePublished">Jun 2</time>
-	</a>
-</span>
+    <div class="content">
+  <article id="post-filter" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
-    
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/06/02/hello-world/#comments" class="article-comment-link">Comments</a></span>
-    
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
+    <div class="article-header">
+      
+        
   
     <h1 itemprop="name">
       <a class="article-title" href="/2016/04/13/filter/">filter</a>
     </h1>
   
 
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
+      
+      <div class="article-meta">
+        <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2016/04/13/filter/" class="article-date">
-	  <time datetime="2016-04-13T06:21:52.000Z" itemprop="datePublished">Apr 13</time>
+	  <time datetime="2016-04-13T06:21:52.000Z" itemprop="datePublished">2016-04-13</time>
 	</a>
 </span>
-    
-    
+        
+        
 
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2016/04/13/filter/#comments" class="article-comment-link">Comments</a></span>
-    
-  </p>
-</article>
+        
 
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2016/04/13/filter/#comments" class="article-comment-link">Comments</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry markdown-body" itemprop="articleBody">
+      
+        <p>PHP有些函数被各种小伙伴用烂了。但是也有一些好函数经常被忽略，以至于有些功能其实PHP内置函数都能解决，而我们小伙伴依然会通过各种稀奇古怪的方法来绕弯走。这里我们说的最常见的就是过滤。</p>
+<h3 id="filter-has-var-函数"><a href="#filter-has-var-函数" class="headerlink" title="filter_has_var 函数"></a><font color="#006600">filter_has_var 函数</font></h3><blockquote>
+<p>譬如你还在用  if(isset($_GET[“name”]) 来判断GET参数 中有name这个参数吗？ 或者post参数、或者cookie里  filter_has_var(INPUT_GET, ‘name’) 可以直接返回true或false  第一个参数 可以填 INPUT_GET、 INPUT_POST、 INPUT_COOKIE、 INPUT_SERVER、 INPUT_ENV  看英文你应该知道 是干啥的</p>
+</blockquote>
+<h3 id="filter-var-函数"><a href="#filter-var-函数" class="headerlink" title="filter_var 函数"></a><font color="#006600">filter_var 函数</font></h3><p>你还在辛辛苦苦的用正则等方式 来验证 字符串是否为email格式吗？</p>
+<blockquote>
+<p>echo filter_var(‘<a href="mailto:shenyi@hishenyi.com" target="_blank" rel="noopener">shenyi@hishenyi.com</a>, FILTER_VALIDATE_EMAIL);</p>
+</blockquote>
+<p>如果OK 会返回原值，如果不OK 则返回false</p>
+<p>第二个参数有哪些？</p>
+<p>验证为主：<br>1、FILTER_VALIDATE_BOOLEAN   .当第一个参数是”1″, “true”, “on” and “yes” 这些字符串时会返回true .否则为false 。所以当用户输入一些 类似布尔类型的值时，你就无需一个个去写if else了。这个参数帮你搞定自动转换</p>
+<p>2、FILTER_VALIDATE_EMAIL  你懂得 ,上面已经演示过了。自己想</p>
+<p>3、FILTER_VALIDATE_FLOAT  你懂得</p>
+<p>4、FILTER_VALIDATE_INT 你懂得</p>
+<p>5、FILTER_VALIDATE_IP 你更加懂</p>
+<p>6、FILTER_VALIDATE_MAC  是否是mac地址。（不要认为是mac电脑,你觉得可能吗？）</p>
+<p>7、FILTER_VALIDATE_REGEXP  判断是否是正则表达式(基于PCRE)。这个很有用哦。尤其做后台时，管理员可能需要进行正则内容的填写。你可以用来判断</p>
+<p>8、FILTER_VALIDATE_URL 是否是正规的URL</p>
+<p>净化过滤 (比较多，我挑几个比较屌的)<br>1、FILTER_SANITIZE_NUMBER_INT   过滤掉非数字型的内容。这个很屌哦</p>
+<blockquote>
+<p>echo filter_var(‘fuck123’, FILTER_SANITIZE_NUMBER_INT);   直接返回123 ，你懂的</p>
+</blockquote>
+<p>2、FILTER_SANITIZE_MAGIC_QUOTES 看列子</p>
+<blockquote>
+<p>echo filter_var(“fuck’123”, FILTER_SANITIZE_MAGIC_QUOTES);   会输出fuck\’123 .好比执行了 addslashes()</p>
+</blockquote>
+<p>3 、FILTER_SANITIZE_STRING  看例子</p>
+<blockquote>
+<p>echo filter_var(“<fuck>123</fuck>”, FILTER_SANITIZE_STRING);  会输出123<br>echo filter_var ( “fuck &lt; 5 &gt;6”, FILTER_SANITIZE_STRING); 会输出fuck6 .注意，你如果用 echo strip_tags($str); 是过滤不掉的哦</p>
+</blockquote>
+<p>这个函数还有第三个参数的，可以用来控制一些默认值的返回。请亲自己动一下手</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
     
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://yoursite.com/2016/04/13/filter/" title="filter" target="_blank" rel="external">http://yoursite.com/2016/04/13/filter/</a>
+    </li>
+    
+    
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/cofess" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/cofess" target="_blank"><span class="text-dark">昵称</span><small class="ml-1x">Web Developer &amp; Designer</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
   </div>
+</div>
+
+
+    </div>
+  </article>
+  
+</div>
+
+  
 
    
 </main>
