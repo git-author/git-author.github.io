@@ -17,20 +17,20 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>PHP的过滤函数 | 侯爽</title>
-  <meta name="description" content="PHP有些函数被各种小伙伴用烂了。但是也有一些好函数经常被忽略，以至于有些功能其实PHP内置函数都能解决，而我们小伙伴依然会通过各种稀奇古怪的方法来绕弯走。这里我们说的最常见的就是过滤。 filter_has_var 函数 譬如你还在用  if(isset($_GET[“name”]) 来判断GET参数 中有name这个参数吗？ 或者post参数、或者cookie里  filter_has_var">
+  <title>PHP的错误机制总结 | 侯爽</title>
+  <meta name="description" content="PHP的错误机制也是非常复杂的，做了几年php，也没有仔细总结过，现在就补上这一课。 特别说明：文章的PHP版本使用5.5.32 PHP的错误级别首先需要了解php有哪些错误。截至到php5.5，一共有16个错误级别 注意：尝试下面的代码的时候请确保打开error_log:  error_reporting(E_ALL);ini_set(‘display_errors’, ‘On’);  E_ER">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PHP的过滤函数">
-<meta property="og:url" content="http://yoursite.com/2016/04/13/filter/index.html">
+<meta property="og:title" content="PHP的错误机制总结">
+<meta property="og:url" content="http://yoursite.com/2016/04/26/error/index.html">
 <meta property="og:site_name" content="侯爽">
-<meta property="og:description" content="PHP有些函数被各种小伙伴用烂了。但是也有一些好函数经常被忽略，以至于有些功能其实PHP内置函数都能解决，而我们小伙伴依然会通过各种稀奇古怪的方法来绕弯走。这里我们说的最常见的就是过滤。 filter_has_var 函数 譬如你还在用  if(isset($_GET[“name”]) 来判断GET参数 中有name这个参数吗？ 或者post参数、或者cookie里  filter_has_var">
+<meta property="og:description" content="PHP的错误机制也是非常复杂的，做了几年php，也没有仔细总结过，现在就补上这一课。 特别说明：文章的PHP版本使用5.5.32 PHP的错误级别首先需要了解php有哪些错误。截至到php5.5，一共有16个错误级别 注意：尝试下面的代码的时候请确保打开error_log:  error_reporting(E_ALL);ini_set(‘display_errors’, ‘On’);  E_ER">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-09-14T02:09:27.000Z">
+<meta property="og:updated_time" content="2018-09-14T02:05:59.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="PHP的过滤函数">
-<meta name="twitter:description" content="PHP有些函数被各种小伙伴用烂了。但是也有一些好函数经常被忽略，以至于有些功能其实PHP内置函数都能解决，而我们小伙伴依然会通过各种稀奇古怪的方法来绕弯走。这里我们说的最常见的就是过滤。 filter_has_var 函数 譬如你还在用  if(isset($_GET[“name”]) 来判断GET参数 中有name这个参数吗？ 或者post参数、或者cookie里  filter_has_var">
+<meta name="twitter:title" content="PHP的错误机制总结">
+<meta name="twitter:description" content="PHP的错误机制也是非常复杂的，做了几年php，也没有仔细总结过，现在就补上这一课。 特别说明：文章的PHP版本使用5.5.32 PHP的错误级别首先需要了解php有哪些错误。截至到php5.5，一共有16个错误级别 注意：尝试下面的代码的时候请确保打开error_log:  error_reporting(E_ALL);ini_set(‘display_errors’, ‘On’);  E_ER">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://yoursite.com/2016/04/13/filter/index.html">
+  <link rel="canonical" href="http://yoursite.com/2016/04/26/error/index.html">
   
     <link rel="alternate" href="/atom.xml" title="侯爽" type="application/atom+xml">
   
@@ -281,14 +281,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-filter" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-error" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      PHP的过滤函数
+      PHP的错误机制总结
     </h1>
   
 
@@ -296,8 +296,8 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2016/04/13/filter/" class="article-date">
-	  <time datetime="2016-04-13T06:21:52.000Z" itemprop="datePublished">2016-04-13</time>
+	<a href="/2016/04/26/error/" class="article-date">
+	  <time datetime="2016-04-26T12:15:46.000Z" itemprop="datePublished">2016-04-26</time>
 	</a>
 </span>
         
@@ -305,43 +305,91 @@
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2016/04/13/filter/#comments" class="article-comment-link">Comments</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2016/04/26/error/#comments" class="article-comment-link">Comments</a></span>
         
       </div>
     </div>
     <div class="article-entry markdown-body" itemprop="articleBody">
       
-        <p>PHP有些函数被各种小伙伴用烂了。但是也有一些好函数经常被忽略，以至于有些功能其实PHP内置函数都能解决，而我们小伙伴依然会通过各种稀奇古怪的方法来绕弯走。这里我们说的最常见的就是过滤。</p>
-<h3 id="filter-has-var-函数"><a href="#filter-has-var-函数" class="headerlink" title="filter_has_var 函数"></a><font color="#006600">filter_has_var 函数</font></h3><blockquote>
-<p>譬如你还在用  if(isset($_GET[“name”]) 来判断GET参数 中有name这个参数吗？ 或者post参数、或者cookie里  filter_has_var(INPUT_GET, ‘name’) 可以直接返回true或false  第一个参数 可以填 INPUT_GET、 INPUT_POST、 INPUT_COOKIE、 INPUT_SERVER、 INPUT_ENV  看英文你应该知道 是干啥的</p>
-</blockquote>
-<h3 id="filter-var-函数"><a href="#filter-var-函数" class="headerlink" title="filter_var 函数"></a><font color="#006600">filter_var 函数</font></h3><p>你还在辛辛苦苦的用正则等方式 来验证 字符串是否为email格式吗？</p>
+        <p>PHP的错误机制也是非常复杂的，做了几年php，也没有仔细总结过，现在就补上这一课。</p>
+<p>特别说明：文章的PHP版本使用5.5.32</p>
+<h3 id="PHP的错误级别"><a href="#PHP的错误级别" class="headerlink" title="PHP的错误级别"></a><font color="#006600">PHP的错误级别</font></h3><p>首先需要了解php有哪些错误。截至到php5.5，一共有16个错误级别</p>
+<p>注意：尝试下面的代码的时候请确保打开error_log:</p>
 <blockquote>
-<p>echo filter_var(‘<a href="mailto:shenyi@hishenyi.com" target="_blank" rel="noopener">shenyi@hishenyi.com</a>, FILTER_VALIDATE_EMAIL);</p>
+<p>error_reporting(E_ALL);<br>ini_set(‘display_errors’, ‘On’);</p>
 </blockquote>
-<p>如果OK 会返回原值，如果不OK 则返回false</p>
-<p>第二个参数有哪些？</p>
-<p>验证为主：<br>1、FILTER_VALIDATE_BOOLEAN   .当第一个参数是”1″, “true”, “on” and “yes” 这些字符串时会返回true .否则为false 。所以当用户输入一些 类似布尔类型的值时，你就无需一个个去写if else了。这个参数帮你搞定自动转换</p>
-<p>2、FILTER_VALIDATE_EMAIL  你懂得 ,上面已经演示过了。自己想</p>
-<p>3、FILTER_VALIDATE_FLOAT  你懂得</p>
-<p>4、FILTER_VALIDATE_INT 你懂得</p>
-<p>5、FILTER_VALIDATE_IP 你更加懂</p>
-<p>6、FILTER_VALIDATE_MAC  是否是mac地址。（不要认为是mac电脑,你觉得可能吗？）</p>
-<p>7、FILTER_VALIDATE_REGEXP  判断是否是正则表达式(基于PCRE)。这个很有用哦。尤其做后台时，管理员可能需要进行正则内容的填写。你可以用来判断</p>
-<p>8、FILTER_VALIDATE_URL 是否是正规的URL</p>
-<p>净化过滤 (比较多，我挑几个比较屌的)<br>1、FILTER_SANITIZE_NUMBER_INT   过滤掉非数字型的内容。这个很屌哦</p>
+<h3 id="E-ERROR"><a href="#E-ERROR" class="headerlink" title="E_ERROR"></a><font color="#006600">E_ERROR</font></h3><p>这种错误是致命错误，会在页面显示Fatal Error， 当出现这种错误的时候，程序就无法继续执行下去了</p>
+<p>错误示例：</p>
 <blockquote>
-<p>echo filter_var(‘fuck123’, FILTER_SANITIZE_NUMBER_INT);   直接返回123 ，你懂的</p>
+<p>// Fatal error: Call to undefined function hpinfo() in /tmp/php/index.php on line 5<br>hpinfo();  //E_ERROR<br>注意，如果有未被捕获的异常，也是会触发这个级别的。</p>
 </blockquote>
-<p>2、FILTER_SANITIZE_MAGIC_QUOTES 看列子</p>
+<h3 id="E-WARNING"><a href="#E-WARNING" class="headerlink" title="E_WARNING"></a><font color="#006600">E_WARNING</font></h3><p>这种错误只是警告，不会终止脚本，程序还会继续进行，显示的错误信息是Warning。比如include一个不存在的文件。</p>
 <blockquote>
-<p>echo filter_var(“fuck’123”, FILTER_SANITIZE_MAGIC_QUOTES);   会输出fuck\’123 .好比执行了 addslashes()</p>
+<p>//Warning: include(a.php): failed to open stream: No such file or directory in &gt; &gt; &gt; /tmp/php/index.php on line 7<br>//Warning: include(): Failed opening ‘a.php’ for inclusion &gt;&gt;(include_path=’.:/usr/share/pear:/usr/share/php’) in /tmp/php/index.php on line 7<br>include(“a.php”); //E_WARNING</p>
 </blockquote>
-<p>3 、FILTER_SANITIZE_STRING  看例子</p>
+<h3 id="E-NOTICE"><a href="#E-NOTICE" class="headerlink" title="E_NOTICE"></a><font color="#006600">E_NOTICE</font></h3><p>这种错误程度更为轻微一些，提示你这个地方不应该这么写。这个也是运行时错误，这个错误的代码可能在其他地方没有问题，只是在当前上下文情况下出现了问题。</p>
+<p>比如$b变量不存在，我们把它赋值给另外一个变量</p>
 <blockquote>
-<p>echo filter_var(“<fuck>123</fuck>”, FILTER_SANITIZE_STRING);  会输出123<br>echo filter_var ( “fuck &lt; 5 &gt;6”, FILTER_SANITIZE_STRING); 会输出fuck6 .注意，你如果用 echo strip_tags($str); 是过滤不掉的哦</p>
+<p>//Notice: Undefined variable: b in /tmp/php/index.php on line 9<br>$a = $b; //E_NOTICE</p>
 </blockquote>
-<p>这个函数还有第三个参数的，可以用来控制一些默认值的返回。请亲自己动一下手</p>
+<h3 id="E-PARSE"><a href="#E-PARSE" class="headerlink" title="E_PARSE"></a><font color="#006600">E_PARSE</font></h3><p>这个错误是编译时候发生的，在编译期发现语法错误，不能进行语法分析。</p>
+<p>比如下面的z没有设置为变量。</p>
+<blockquote>
+<p>// Parse error: syntax error, unexpected ‘=’ in /tmp/php/index.php on line 20<br>z=1; // E_PARSE</p>
+</blockquote>
+<h3 id="E-STRICT"><a href="#E-STRICT" class="headerlink" title="E_STRICT"></a><font color="#006600">E_STRICT</font></h3><p>这个错误是PHP5之后引入的，你的代码可以运行，但是不是PHP建议的写法。<br>比如在函数形参传递++符号</p>
+<blockquote>
+<p>// Strict Standards: Only variables should be passed by reference in /tmp/php/index.php on &gt; line 17<br>function change (&amp;$var) {<br>   $var += 10;<br> }<br> $var = 1;<br> change(++$var);<br> // E_STRICT</p>
+</blockquote>
+<h3 id="E-RECOVERABLE-ERROR"><a href="#E-RECOVERABLE-ERROR" class="headerlink" title="E_RECOVERABLE_ERROR"></a><font color="#006600">E_RECOVERABLE_ERROR</font></h3><p>这个级别其实是ERROR级别的，但是它是期望被捕获的，如果没有被错误处理捕获，表现和E_ERROR是一样的。<br>经常出现在形参定义了类型，但调用的时候传入了错误类型。它的错误提醒也比E_ERROR的fatal error前面多了一个Catachable的字样。</p>
+<blockquote>
+<p>//Catchable fatal error: Argument 1 passed to testCall() must be an instance of A, instance of B given, called in /tmp/php/index.php on line 37 and defined in /tmp/php/index.php on line 33<br>class A {<br>}<br>class B {<br>}<br>function testCall(A $a) {<br>}<br>$b = new B();<br>testCall($b);</p>
+</blockquote>
+<h3 id="E-DEPRECATED"><a href="#E-DEPRECATED" class="headerlink" title="E_DEPRECATED"></a><font color="#006600">E_DEPRECATED</font></h3><p>这个错误表示你用了一个旧版本的函数，而这个函数后期版本可能被禁用或者不维护了。<br>比如curl的CURLOPT_POSTFIELDS使用\@FILENAME来上传文件的方法</p>
+<blockquote>
+<p>// Deprecated: curl_setopt(): The usage of the @filename API for file uploading is deprecated. Please use the CURLFile class instead in /tmp/php/index.php on line 42<br>$ch = curl_init(“<a href="http://www.remotesite.com/upload.php&quot;)" target="_blank" rel="noopener">http://www.remotesite.com/upload.php&quot;)</a>;<br>curl_setopt($ch, CURLOPT_POSTFIELDS, array(‘fileupload’ =&gt; ‘@’. “test”));</p>
+</blockquote>
+<h3 id="E-CORE-ERROR-E-CORE-WARNING"><a href="#E-CORE-ERROR-E-CORE-WARNING" class="headerlink" title="E_CORE_ERROR, E_CORE_WARNING"></a><font color="#006600">E_CORE_ERROR, E_CORE_WARNING</font></h3><p>这两个错误是由PHP的引擎产生的，在PHP初始化过程中发生。</p>
+<h3 id="E-COMPILE-ERROR-E-COMPILE-WARNING"><a href="#E-COMPILE-ERROR-E-COMPILE-WARNING" class="headerlink" title="E_COMPILE_ERROR, E_COMPILE_WARNING"></a><font color="#006600">E_COMPILE_ERROR, E_COMPILE_WARNING</font></h3><p>这两个错误是由PHP引擎产生的，在编译过程中发生。</p>
+<h3 id="E-USER-ERROR-E-USER-WARNING-E-USER-NOTICE-E-USER-DEPRECATED"><a href="#E-USER-ERROR-E-USER-WARNING-E-USER-NOTICE-E-USER-DEPRECATED" class="headerlink" title="E_USER_ERROR, E_USER_WARNING, E_USER_NOTICE, E_USER_DEPRECATED,"></a><font color="#006600">E_USER_ERROR, E_USER_WARNING, E_USER_NOTICE, E_USER_DEPRECATED,</font></h3><p>这些错误都是用户制造的，使用trigger_error，这里就相当于一个口子给用户触发出各种错误类型。这个是一个很好逃避try catch异常的方式。</p>
+<blockquote>
+<p>trigger_error(“Cannot divide by zero”, E_USER_ERROR);<br>// E_USER_ERROR<br>// E_USER_WARING<br>// E_USER_NOTICE<br>// E_USER_DEPRECATED</p>
+</blockquote>
+<h3 id="E-ALL"><a href="#E-ALL" class="headerlink" title="E_ALL"></a><font color="#006600">E_ALL</font></h3><p>E_STRICT出外的所有错误和警告信息。</p>
+<h3 id="错误控制"><a href="#错误控制" class="headerlink" title="错误控制"></a><font color="#006600">错误控制</font></h3><p>php中有很多配置和参数是可以控制错误，以及错误的日志显示的。第一步，我们需要了解的是php中的有关错误的配置有哪些？<br>我们按照php+php-fpm的模型来说，会影响php错误显示的其实是有两个配置文件，一个是php本身的配置文件php.ini，另外一个是php-fpm的配置文件，php-fpm.conf。</p>
+<h3 id="php-ini中的配置"><a href="#php-ini中的配置" class="headerlink" title="php.ini中的配置"></a><font color="#006600">php.ini中的配置</font></h3><blockquote>
+<p>error_reporting = E_ALL  // 报告错误级别，什么级别的<br>error_log = /tmp/php_errors.log // php中的错误显示的日志位置<br>display_errors = On // 是否把错误展示在输出上，这个输出可能是页面，也可能是stdout<br>display_startup_errors = On // 是否把启动过程的错误信息显示在页面上，记得上面说的有几个Core类型的错误是启动时候发生的，这个就是控制这些错误是否显示页面的。<br>log_errors = On // 是否要记录错误日志<br>log_errors_max_len = 1024 // 错误日志的最大长度<br>ignore_repeated_errors = Off // 是否忽略重复的错误<br>track_errors = Off // 是否使用全局变量$php_errormsg来记录最后一个错误<br>xmlrpc_errors = 0 //是否使用XML-RPC的错误信息格式记录错误<br>xmlrpc_error_number = 0 // 用作 XML-RPC faultCode 元素的值。<br>html_errors = On  // 是否把输出中的函数等信息变为HTML链接<br>docref_root = <a href="http://manual/en/" target="_blank" rel="noopener">http://manual/en/</a> // 如果html_errors开启了，这个链接的根路径是什么<br>fastcgi.logging = 0 // 是否把php错误抛出到fastcgi中</p>
+</blockquote>
+<p>我们经常会被问到，error_reporting和display_errors有什么区别呢？这两个函数是完全不一样的。</p>
+<p>PHP默认是会在日志和标准输出（如果是fpm模式标准输出就是页面）</p>
+<p>error_reporting的参数是错误级别。表示什么样子的级别才应该触发错误。如果我们告诉PHP，所有错误级别都不需要触发错误，那么，不管是日志，还是页面，都不会显示这个错误，就相当于什么都没有发生。</p>
+<p>display_errors是控制是否要在标准输出展示错误信息<br>log_errors则是控制是否要在日志中记录错误信息。</p>
+<p>error_log是显示错误日志的位置，这个在php-fpm中往往会被重写，于是往往会发现的是cli和fpm的错误日志竟然不是在同一个文件中。</p>
+<p>ignore_repeated_errors这个标记控制的是如果有重复的日志，那么就只会记录一条，比如下面的程序：</p>
+<blockquote>
+<p>error_reporting(E_ALL);<br>ini_set(‘ignore_repeated_errors’, 1);<br>ini_set(‘ignore_repeated_source’, 1);<br>$a = $c; $a = $c; //E_NOTICE<br>//Notice: Undefined variable: c in /tmp/php/index.php on line 20</p>
+</blockquote>
+<p>本来会出现两次NOTICE的，但是现在，只会出现一次了…</p>
+<p>track_errors开启会把最后一个错误信息存储到变量里面去，这个可能在对记日志的时候会有一些用处吧。不过我觉得真是没啥用…</p>
+<p>html_errors 和 docref_root 两个是个挺有人性化的配置，配置了这两个参数以后，我们返回的错误信息中如果有一些在文档中有的信息，就会变成链接形式。</p>
+<blockquote>
+<p>error_reporting(E_ALL);<br>ini_set(‘html_errors’, 1);<br>ini_set(‘docref_root’, “<a href="https://secure.php.net/manual/zh/&quot;)" target="_blank" rel="noopener">https://secure.php.net/manual/zh/&quot;)</a>;<br>include(“a2.php”); //E_WARNING</p>
+</blockquote>
+<p>能让你快速定位到我们出现错误的地方。是不是很人性～</p>
+<h3 id="php-fpm中的配置"><a href="#php-fpm中的配置" class="headerlink" title="php-fpm中的配置"></a><font color="#006600">php-fpm中的配置</font></h3><blockquote>
+<p>error_log = /var/log/php-fpm/error.log // php-fpm自身的日志<br>log_level = notice // php-fpm自身的日志记录级别<br>php_flag[display_errors] = off // 覆盖php.ini中的某个配置变量，可被程序中的ini_set覆盖<br>php_value[display_errors] = off // 同php_flag<br>php_admin_value[error_log] = /tmp/www-error.log // 覆盖php.ini中的某个配置变量，不可被程序中的ini_set覆盖<br>php_admin_flag[log_errors] = on // 同php_admin_value<br>catch_workers_output = yes // 是否抓取fpmworker的输出<br>request_slowlog_timeout = 0 // 慢日志时长<br>slowlog = /var/log/php-fpm/www-slow.log // 慢日志记录</p>
+</blockquote>
+<p>php-fpm的配置中也有一个error_log配置，这个很经常会和php.ini中的error_log配置弄混。但他们记录的东西是不一样的，php-fpm的error_log只记录php-fpm本身的日志，比如fpm启动，关闭。</p>
+<p>而php.ini中的error_log是记录php程序本身的错误日志。</p>
+<p>那么在php-fpm中要覆盖php.ini中的error_log配置，就需要使用到下面几个函数：</p>
+<ul>
+<li>php_flag</li>
+<li>php_value</li>
+<li>php_admin_flag</li>
+<li>php_admin_value</li>
+</ul>
+<p>这四个函数admin的两个函数说明这个变量设置完之后，不能在代码中使用ini_set把这个变量重新赋值了。而php_flag/value就仍然以php代码中的ini_set为准。</p>
+<p>slowlog是fpm记录的，可以使用request_slowlog_timeout设置判断慢日志的时长。</p>
 
       
     </div>
@@ -351,7 +399,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://yoursite.com/2016/04/13/filter/" title="PHP的过滤函数" target="_blank" rel="external">http://yoursite.com/2016/04/13/filter/</a>
+      <a href="http://yoursite.com/2016/04/26/error/" title="PHP的错误机制总结" target="_blank" rel="external">http://yoursite.com/2016/04/26/error/</a>
     </li>
     
     
@@ -398,10 +446,10 @@
   
   <ul class="pager pull-left">
     
-    <li class="prev">
-      <a href="/2016/04/26/error/" title="PHP的错误机制总结"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
-    </li>
     
+    <li class="next">
+      <a href="/2016/04/13/filter/" title="PHP的过滤函数"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
     
     
   </ul>
